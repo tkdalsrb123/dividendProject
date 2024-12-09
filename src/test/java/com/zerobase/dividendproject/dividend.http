@@ -34,10 +34,14 @@ Content-Type: application/json
 GET http://localhost:8080/company
 
 ### Company 배당금 조회
-GET http://localhost:8080/finance/dividend/The Coca-Cola Company
+GET http://localhost:8080/finance/dividend/Intel Corporation (INTC)
 
 ### 자동조회
 GET http://localhost:8080/company/autocomplete?keyword=I
+
+### 삭제
+DELETE http://localhost:8080/company/KO
+
 
 ### 로그인
 POST http://localhost:8080/auth/singup

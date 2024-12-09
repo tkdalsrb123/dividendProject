@@ -3,12 +3,14 @@ package com.zerobase.dividendproject.service;
 import com.zerobase.dividendproject.model.Company;
 import com.zerobase.dividendproject.model.Dividend;
 import com.zerobase.dividendproject.model.ScrapedResult;
+import com.zerobase.dividendproject.model.constants.CacheKey;
 import com.zerobase.dividendproject.persist.entity.CompanyEntity;
 import com.zerobase.dividendproject.persist.entity.DividendEntity;
 import com.zerobase.dividendproject.persist.repository.CompanyRepository;
 import com.zerobase.dividendproject.persist.repository.DividendRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class FinanceService {
 
     private final DividendRepository dividendRepository;
 
+    @Cacheable(key = "#companyName", value = CacheKey.KEY_FINANCE)
     public ScrapedResult getDividendByGetCompanyName(String companyName) {
         CompanyEntity company = this.companyRepository.findByName(companyName)
                 .orElseThrow(() -> new RuntimeException("Company not found, companyName = " + companyName));

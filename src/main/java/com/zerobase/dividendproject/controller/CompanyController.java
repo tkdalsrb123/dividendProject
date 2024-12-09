@@ -2,11 +2,16 @@ package com.zerobase.dividendproject.controller;
 
 
 import com.zerobase.dividendproject.model.Company;
+import com.zerobase.dividendproject.model.constants.CacheKey;
 import com.zerobase.dividendproject.persist.entity.CompanyEntity;
 import com.zerobase.dividendproject.service.CompanyService;
+
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+    import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 public class CompanyController {
 
     private final CompanyService companyService;
+
+//    private final RedisCacheManager redisCacheManager;
 
     @GetMapping("/autocomplete")
     public ResponseEntity<?> autoCompleteCompany(@RequestParam String keyword) {
@@ -44,6 +51,11 @@ public class CompanyController {
     @DeleteMapping("/{ticker}")
     public ResponseEntity<?> deleteCompany(@PathVariable String ticker) {
         String companyName = this.companyService.deleteCompany(ticker);
+
+//        this.clearFinanceCache(companyName);
         return ResponseEntity.ok(companyName);
     }
+
+//    @CacheEvict(key = "#companyName", value = CacheKey.KEY_FINANCE)
+//    public void clearFinanceCache(String companyName) {}
 }
