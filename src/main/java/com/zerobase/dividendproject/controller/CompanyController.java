@@ -2,8 +2,11 @@ package com.zerobase.dividendproject.controller;
 
 
 import com.zerobase.dividendproject.model.Company;
+import com.zerobase.dividendproject.persist.entity.CompanyEntity;
 import com.zerobase.dividendproject.service.CompanyService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,7 @@ public class CompanyController {
     @GetMapping("/autocomplete")
     public ResponseEntity<?> autoCompleteCompany(@RequestParam String keyword) {
         var result = this.companyService.getCompanyNamesByKeyword(keyword);
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping
@@ -31,4 +35,15 @@ public class CompanyController {
         return ResponseEntity.ok(company);
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAllCompany(Pageable pageable) {
+        Page<CompanyEntity> companies = this.companyService.getAllCompany(pageable);
+        return ResponseEntity.ok(companies);
+    }
+
+    @DeleteMapping("/{ticker}")
+    public ResponseEntity<?> deleteCompany(@PathVariable String ticker) {
+        String companyName = this.companyService.deleteCompany(ticker);
+        return ResponseEntity.ok(companyName);
+    }
 }

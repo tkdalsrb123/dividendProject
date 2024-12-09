@@ -10,12 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DividendProjectApplication {
 
     public static void main(String[] args) {
-//        SpringApplication.run(DividendProjectApplication.class, args);
-        YahooFinanceScraper scraper = new YahooFinanceScraper();
-        Company company = scraper.scrapCompanyByTicker("KO");
-        System.out.println(company.toString());
-        ScrapedResult result = scraper.scrap(company);
-            System.out.println(result.toString());
+        SpringApplication.run(DividendProjectApplication.class, args);
     }
 
 }

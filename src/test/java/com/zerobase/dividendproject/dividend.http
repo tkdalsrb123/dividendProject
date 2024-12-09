@@ -1,0 +1,50 @@
+###
+POST http://localhost:8080/company
+Content-Type: application/json
+
+{
+  "ticker": "KO"
+}
+
+###
+POST http://localhost:8080/company
+Content-Type: application/json
+
+{
+  "ticker": "INTC"
+}
+
+###
+POST http://localhost:8080/company
+Content-Type: application/json
+
+{
+  "ticker": "IBM"
+}
+
+###
+POST http://localhost:8080/company
+Content-Type: application/json
+
+{
+  "ticker": "SPY"
+}
+
+### page test (size는 출력 개수, page는 인덱스 번호)
+GET http://localhost:8080/company
+
+### Company 배당금 조회
+GET http://localhost:8080/finance/dividend/The Coca-Cola Company
+
+### 자동조회
+GET http://localhost:8080/company/autocomplete?keyword=I
+
+### 로그인
+POST http://localhost:8080/auth/singup
+Content-Type: application/json
+
+{
+  "username": "grace",
+  "password": "grace123!@#",
+  "roles": ["ROLE_READ"]
+}
