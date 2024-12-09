@@ -1,5 +1,8 @@
 package com.zerobase.dividendproject;
 
+import com.zerobase.dividendproject.model.Company;
+import com.zerobase.dividendproject.model.ScrapedResult;
+import com.zerobase.dividendproject.scraper.YahooFinanceScraper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +10,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DividendProjectApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DividendProjectApplication.class, args);
+//        SpringApplication.run(DividendProjectApplication.class, args);
+        YahooFinanceScraper scraper = new YahooFinanceScraper();
+        Company company = scraper.scrapCompanyByTicker("KO");
+        System.out.println(company.toString());
+        ScrapedResult result = scraper.scrap(company);
+            System.out.println(result.toString());
     }
 
 }
